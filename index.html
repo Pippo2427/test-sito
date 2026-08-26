@@ -28,7 +28,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            padding-bottom: 90px; /* Spazio per non sovrapporsi al box admin in basso a sinistra */
+            padding-bottom: 90px;
         }
         nav h2 {
             font-size: 1.2em;
@@ -198,7 +198,7 @@
     <!-- Area Riservata fissa in basso a sinistra -->
     <div class="admin-floating-box">
         <span>Admin</span>
-        <a href="/admin/" class="btn-admin">Accedi</a>
+        <a href="admin/index.html" class="btn-admin">Accedi</a>
     </div>
 
     <script>
@@ -210,7 +210,7 @@
             document.getElementById('sezione-' + id).classList.add('active');
         }
 
-        // Funzione per caricare le bio dalla cartella _ricercatori
+        // Funzione per caricare le bio dalla cartella _ricercatori via API di GitHub
         async function caricaRicercatori() {
             const container = document.getElementById('lista-ricercatori');
             try {
@@ -258,7 +258,7 @@
             }
         }
 
-        // Semplice parser per leggere i dati di Decap CMS
+        // Semplice parser per leggere i dati salvati da Decap CMS
         function parseMarkdown(text) {
             const parts = text.split('---');
             let data = {};
