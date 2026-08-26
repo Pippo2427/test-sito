@@ -2,6 +2,8 @@ backend:
   name: github
   repo: pippo2427/test-sito
   branch: main
+  base_url: https://lingering-meadow-90fa.paperino-paperottopp8.workers.dev
+  auth_endpoint: auth
   commit_messages:
     create: "Create {{collection}} {{slug}}"
     update: "Update {{collection}} {{slug}}"
