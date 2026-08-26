@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Pippo2427/test-sito
+  repo: pippo2427/test-sito
   branch: main
 
 media_folder: "images"
