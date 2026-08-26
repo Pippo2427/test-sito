@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: Pippo2427/test-sito
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "ricercatori"
+    label: "Ricercatori"
+    folder: "_ricercatori"
+    create: true
+    fields:
+      - {label: "Nome e Cognome", name: "title", widget: "string"}
+      - {label: "Ruolo", name: "ruolo", widget: "string"}
+      - {label: "Biografia", name: "body", widget: "markdown"}
+      - {label: "Link Video (YouTube/Vimeo)", name: "video", widget: "string", required: false}
+      - {label: "Foto", name: "image", widget: "image", required: false}
