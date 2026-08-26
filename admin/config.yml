@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: Pippo2427/test-sito
+  name: git-gateway
   branch: main
-
-publish_mode: editorial_workflow
 
 media_folder: "images"
 public_folder: "/images"
