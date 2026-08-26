@@ -1,6 +1,19 @@
 backend:
   name: github
-  repo: pippo2427/test-sito
-  branch: main
-  base_url: https://lingering-meadow-90fa.paperino-paperottopp8.workers.dev
-  auth_endpoint: auth
+  repo: "pippo2427/test-sito"
+  branch: "main"
+  base_url: "https://lingering-meadow-90fa.paperino-paperottopp8.workers.dev"
+  auth_endpoint: "auth"
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "ricercatori"
+    label: "Ricercatori"
+    folder: "_ricercatori"
+    create: true
+    fields:
+      - { label: "Nome e Cognome", name: "title", widget: "string" }
+      - { label: "Ruolo", name: "ruolo", widget: "string" }
+      - { label: "Biografia", name: "body", widget: "markdown" }
