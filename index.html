@@ -3,49 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nome Ricerca Universitaria - Progetto</title>
+    <title>Portale di Ricerca Universitaria</title>
     <style>
-        /* Stili grafici semplici, puliti e in stile accademico */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
             color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
         }
         header {
-            background: #002b49; /* Blu accademico */
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-        main {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        section {
-            background: white;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            background: #fff;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
         }
-        h2 {
-            color: #002b49;
-            border-bottom: 2px solid #eaeaea;
-            padding-bottom: 0.5rem;
+        h1 {
+            color: #003366;
+            margin-top: 0;
         }
-        .admin-link {
+        .admin-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .btn-admin {
             display: inline-block;
-            margin-top: 1rem;
-            background: #28a745;
+            background-color: #28a745;
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 10px 20px;
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-admin:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -54,35 +57,24 @@
     <header>
         <h1>Nome del Progetto di Ricerca</h1>
         <p>Università degli Studi - Dipartimento di Riferimento</p>
+        <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+        <h2>Benvenuti nel portale di ricerca</h2>
+        <p>Questo spazio raccoglie le biografie dei ricercatori, i video dei nostri esperimenti visuali e una sezione dedicata alla discussione accademica aperta.</p>
     </header>
 
-    <main>
-        <!-- Sezione Presentazione -->
-        <section>
-            <h2>Benvenuti nel portale di ricerca</h2>
-            <p>Questo spazio raccoglie le biografie dei ricercatori, i video dei nostri esperimenti/studi e una sezione dedicata alla discussione accademica aperta.</p>
-        </section>
+    <section>
+        <h2>I Ricercatori</h2>
+        <p><em>Le biografie inserite tramite il pannello di controllo compariranno qui automaticamente.</em></p>
+    </section>
 
-        <!-- Sezione Ricercatori e Bio -->
-        <section>
-            <h2>I Ricercatori</h2>
-            <p><em>Qui compariranno le schede dei ricercatori con foto, bio e video correlati.</em></p>
-            <!-- Esempio di box ricercatore -->
-            <div style="border-left: 4px solid #002b49; padding-left: 1rem; margin-top: 1rem;">
-                <h3>Nome Cognome</h3>
-                <p>Breve biografia del ricercatore, ruoli e interessi di studio.</p>
-                <!-- Spazio Video -->
-                <p><strong>Video di ricerca:</strong> (Qui inseriremo il link del video)</p>
-            </div>
-        </section>
-
-        <!-- Sezione Area Admin (Riservata) -->
-        <section style="background: #e9ecef;">
-            <h2>Area Riservata / Admin</h2>
-            <p>Se sei un membro del team di ricerca e vuoi aggiungere o modificare una bio, accedi al pannello di controllo protetto.</p>
-            <a href="#" class="admin-link">Accedi come Admin</a>
-        </section>
-    </main>
+    <!-- Sezione Admin con il link corretto -->
+    <div class="admin-section">
+        <div>
+            <strong>Area Riservata / Admin</strong>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #666;">Se fai parte del team e vuoi aggiungere o modificare una bio, accedi al pannello protetto.</p>
+        </div>
+        <a href="/admin/" class="btn-admin">Accedi come Admin</a>
+    </div>
 
 </body>
 </html>
