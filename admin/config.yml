@@ -4,22 +4,3 @@ backend:
   branch: main
   base_url: https://lingering-meadow-90fa.paperino-paperottopp8.workers.dev
   auth_endpoint: auth
-  commit_messages:
-    create: "Create {{collection}} {{slug}}"
-    update: "Update {{collection}} {{slug}}"
-    delete: "Delete {{collection}} {{slug}}"
-
-media_folder: "images"
-public_folder: "/images"
-
-collections:
-  - name: "ricercatori"
-    label: "Ricercatori"
-    folder: "_ricercatori"
-    create: true
-    fields:
-      - {label: "Nome e Cognome", name: "title", widget: "string"}
-      - {label: "Ruolo", name: "ruolo", widget: "string"}
-      - {label: "Biografia", name: "body", widget: "markdown"}
-      - {label: "Link Video (YouTube/Vimeo)", name: "video", widget: "string", required: false}
-      - {label: "Foto", name: "image", widget: "image", required: false}
