@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Pippo2427/test-sito
   branch: main
 
 media_folder: "images"
