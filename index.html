@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portale di Ricerca Universitaria</title>
+    <!-- Libreria per leggere il formato Markdown delle bio -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,12 +27,39 @@
             color: #003366;
             margin-top: 0;
         }
+        .ricercatore-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .ricercatore-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #eee;
+        }
+        .ricercatore-info h3 {
+            margin: 0 0 5px 0;
+            color: #003366;
+        }
+        .ruolo {
+            font-weight: bold;
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
         .admin-section {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -59,15 +88,18 @@
         <p>Università degli Studi - Dipartimento di Riferimento</p>
         <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
         <h2>Benvenuti nel portale di ricerca</h2>
-        <p>Questo spazio raccoglie le biografie dei ricercatori, i video dei nostri esperimenti visuali e una sezione dedicata alla discussione accademica aperta.</p>
+        <p>Questo spazio raccoglie le biografie dei ricercatori, i video dei nostri esperimenti visuali e la sezione dedicata alla discussione accademica aperta.</p>
     </header>
 
     <section>
         <h2>I Ricercatori</h2>
-        <p><em>Le biografie inserite tramite il pannello di controllo compariranno qui automaticamente.</em></p>
+        <!-- Qui compariranno le bio create dal pannello -->
+        <div id="lista-ricercatori">
+            <p><em>Caricamento biografie in corso...</em></p>
+        </div>
     </section>
 
-    <!-- Sezione Admin con il link corretto -->
+    <!-- Sezione Admin -->
     <div class="admin-section">
         <div>
             <strong>Area Riservata / Admin</strong>
@@ -76,5 +108,85 @@
         <a href="/admin/" class="btn-admin">Accedi come Admin</a>
     </div>
 
+    <script>
+        // Funzione per caricare le bio dalla cartella _ricercatori creata da Decap CMS
+        async function caricaRicercatori() {
+            const container = document.getElementById('lista-ricercatori');
+            try {
+                // Legge l'elenco dei file nella cartella tramite l'API di GitHub pubblica del repo
+                const response = await fetch('https://api.github.com/repos/pippo2427/test-sito/contents/_ricercatori');
+                if (!response.ok) {
+                    container.innerHTML = '<p>Nessun ricercatore inserito al momento.</p>';
+                    return;
+                }
+                const files = await response.json();
+                
+                if (files.length === 0) {
+                    container.innerHTML = '<p>Nessun ricercatore inserito al momento.</p>';
+                    return;
+                }
+
+                container.innerHTML = ''; // Pulisce il messaggio di caricamento
+
+                for (let file of files) {
+                    if (file.name.endsWith('.md')) {
+                        const fileRes = await fetch(file.download_url);
+                        const markdownText = await fileRes.text();
+                        
+                        // Estrae i dati frontmatter (titolo, ruolo, foto, video) e il corpo del testo
+                        const parsedData = parseMarkdown(markdownText);
+                        
+                        // Crea la scheda visiva per ogni ricercatore
+                        const card = document.createElement('div');
+                        card.className = 'ricercatore-card';
+                        
+                        let imgHtml = parsedData.image ? `<img src="${parsedData.image}" alt="${parsedData.title}">` : '';
+                        let videoHtml = parsedData.video ? `<p><a href="${parsedData.video}" target="_blank">📺 Guarda il video/esperimento</a></p>` : '';
+                        
+                        card.innerHTML = `
+                            ${imgHtml}
+                            <div class="ricercatore-info" style="flex: 1;">
+                                <h3>${parsedData.title || 'Senza nome'}</h3>
+                                <div class="ruolo">${parsedData.ruolo || ''}</div>
+                                <div>${marked.parse(parsedData.body || '')}</div>
+                                ${videoHtml}
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<p>Impossibile caricare le biografie in questo momento.</p>';
+            }
+        }
+
+        // Semplice parser per leggere i dati salvati da Decap CMS
+        function parseMarkdown(text) {
+            const parts = text.split('---');
+            let data = {};
+            let body = text;
+
+            if (parts.length >= 3) {
+                const frontmatter = parts[1];
+                body = parts.slice(2).join('---').trim();
+                
+                frontmatter.split('\n').forEach(line => {
+                    const colonIndex = line.indexOf(':');
+                    if (colonIndex !== -1) {
+                        const key = line.substring(0, colonIndex).trim();
+                        let val = line.substring(colonIndex + 1).trim();
+                        // Rimuove eventuali virgolette
+                        val = val.replace(/^["'](.+(?=["']))["']$/, '$1');
+                        data[key] = val;
+                    }
+                });
+            }
+            data.body = body;
+            return data;
+        }
+
+        caricaRicercatori();
+    </script>
 </body>
 </html>
